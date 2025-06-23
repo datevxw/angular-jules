@@ -1,0 +1,25 @@
+// No specific styles needed here for now as Tailwind is used in the template
+// and Material components have their own styling.
+// Keeping this file for future component-specific styles if necessary.
+
+// Adding a placeholder style to ensure the file is not empty,
+// as some linters or build processes might complain.
+.tabbed-form-placeholder {
+    display: none;
+}
+
+// If you want to apply padding via SCSS instead of Tailwind classes in HTML:
+// :host ::ng-deep .mat-mdc-tab-body-content {
+//   padding: 1rem;
+// }
+
+// form {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1rem; // Or use Tailwind's space-y-* in the HTML
+// }
+
+// .button-row {
+//   display: flex;
+//   gap: 0.5rem; // Or use Tailwind's space-x-* in the HTML
+// }

@@ -1,0 +1,74 @@
+<mat-tab-group>
+  <mat-tab label="Personal Info">
+    <ng-template matTabContent>
+      <form [formGroup]="form1" class="p-4">
+        <div class="flex flex-col space-y-4">
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName">
+            <mat-error *ngIf="form1.get('firstName')?.hasError('required')">First name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+            <mat-error *ngIf="form1.get('lastName')?.hasError('required')">Last name is required</mat-error>
+          </mat-form-field>
+
+          <div class="flex space-x-2">
+            <button mat-raised-button color="primary" type="button" (click)="onSave(form1)" [disabled]="form1.invalid">Save</button>
+            <button mat-stroked-button type="button" (click)="onCancel(form1)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Contact Info">
+    <ng-template matTabContent>
+      <form [formGroup]="form2" class="p-4">
+        <div class="flex flex-col space-y-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email">
+            <mat-error *ngIf="form2.get('email')?.hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="form2.get('email')?.hasError('email')">Invalid email format</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+          </mat-form-field>
+
+          <div class="flex space-x-2">
+            <button mat-raised-button color="primary" type="button" (click)="onSave(form2)" [disabled]="form2.invalid">Save</button>
+            <button mat-stroked-button type="button" (click)="onCancel(form2)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Work Info">
+    <ng-template matTabContent>
+      <form [formGroup]="form3" class="p-4">
+        <div class="flex flex-col space-y-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="jobTitle">
+          </mat-form-field>
+
+          <div class="flex space-x-2">
+            <button mat-raised-button color="primary" type="button" (click)="onSave(form3)" [disabled]="form3.invalid">Save</button>
+            <button mat-stroked-button type="button" (click)="onCancel(form3)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
