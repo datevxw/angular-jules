@@ -1,0 +1,63 @@
+<ng-container [formGroup]="form">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+    {/* Column 1: General Termination Conditions */}
+    <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
+      <h3 class="text-lg font-semibold mb-3 border-b pb-2">1. General Termination Conditions</h3>
+      <mat-checkbox formControlName="zus_kuendigungsvereinbarungen">
+        Zusätzliche Kündigungsvereinbarungen
+      </mat-checkbox>
+      <mat-checkbox formControlName="ord_kuendigung_leistung">
+        Ordentliche Kündigung (tarif-) vertraglich nur gegen Leistung zulässig
+      </mat-checkbox>
+      <mat-checkbox formControlName="voraussetzungen_fristg_kuendigung">
+        Voraussetzungen für fristgebundene Kündigung aus wichtigem Grund liegen vor
+      </mat-checkbox>
+
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <p class="text-sm text-gray-600 mb-2">Ohne Eigenkündigung wäre Kündigung durch Arbeitgeber erfolgt</p>
+        <div class="grid grid-cols-2 gap-x-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>am:*</mat-label>
+            <input matInput [matDatepicker]="agKuendigungAmPicker" formControlName="ag_kuendigung_am" placeholder="TT.MM.JJJJ">
+            <mat-datepicker-toggle matSuffix [for]="agKuendigungAmPicker"></mat-datepicker-toggle>
+            <mat-datepicker #agKuendigungAmPicker></mat-datepicker>
+            {/* TODO: Add mat-error for validation if needed */}
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>zum:*</mat-label>
+            <input matInput [matDatepicker]="agKuendigungZumPicker" formControlName="ag_kuendigung_zum" placeholder="TT.MM.JJJJ">
+            <mat-datepicker-toggle matSuffix [for]="agKuendigungZumPicker"></mat-datepicker-toggle>
+            <mat-datepicker #agKuendigungZumPicker></mat-datepicker>
+            {/* TODO: Add mat-error for validation if needed */}
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    {/* Column 2: Vertragswidriges Verhalten */}
+    <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
+      <h3 class="text-lg font-semibold mb-3 border-b pb-2">2. Vertragswidriges Verhalten</h3>
+      <mat-checkbox formControlName="kuendigung_vertragswidrig">
+        Kündigung wegen vertragswidrigen Verhaltens
+      </mat-checkbox>
+      <mat-checkbox formControlName="abmahnung_vertragswidrig">
+        Abmahnung wegen vertragswidrigen Verhaltens
+      </mat-checkbox>
+      <mat-form-field appearance="fill" class="w-full mt-2">
+        <mat-label>Abmahnungsdatum*</mat-label>
+        <input matInput [matDatepicker]="abmahnungDatumPicker" formControlName="abmahnungsdatum" placeholder="TT.MM.JJJJ">
+        <mat-datepicker-toggle matSuffix [for]="abmahnungDatumPicker"></mat-datepicker-toggle>
+        <mat-datepicker #abmahnungDatumPicker></mat-datepicker>
+        {/* TODO: Add mat-error for validation, potentially conditional on abmahnung_vertragswidrig */}
+      </mat-form-field>
+    </div>
+
+    {/* Column 3: Unwiderrufliche bezahlte Freistellung */}
+    <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
+      <h3 class="text-lg font-semibold mb-3 border-b pb-2">3. Unwiderrufliche bezahlte Freistellung</h3>
+      <mat-checkbox formControlName="freistellung_einvernehmlich">
+        Freistellung erfolgte einvernehmlich
+      </mat-checkbox>
+    </div>
+  </div>
+</ng-container>
