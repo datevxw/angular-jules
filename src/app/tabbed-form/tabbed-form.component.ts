@@ -57,7 +57,15 @@ export class TabbedFormComponent implements OnInit {
     });
 
     this.form2 = this.fb.group({
-      // Define controls for "Zusatzangaben" tab
+      zus_kuendigungsvereinbarungen: [false],
+      ord_kuendigung_leistung: [false],
+      voraussetzungen_fristg_kuendigung: [false],
+      ag_kuendigung_am: [''], // Consider adding Validators.required or pattern validators if needed
+      ag_kuendigung_zum: [''], // Consider adding Validators.required or pattern validators if needed
+      kuendigung_vertragswidrig: [false],
+      abmahnung_vertragswidrig: [false],
+      abmahnungsdatum: [''], // Consider adding Validators.required if abmahnung_vertragswidrig is true
+      freistellung_einvernehmlich: [false]
     });
 
     this.form3 = this.fb.group({
