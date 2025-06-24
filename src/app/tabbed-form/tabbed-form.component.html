@@ -1,172 +1,38 @@
-<mat-tab-group>
-  <mat-tab label="Kündiung/Entlassung">
-    <ng-template matTabContent>
-      <form [formGroup]="form1" class="p-4">
-        <div class="grid grid-cols-3 gap-4">
-          <mat-form-field appearance="fill">
-            <mat-label>arbeitsverhältnis gekündigt/beendet am</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="terminationDate" required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form1.get('terminationDate')?.hasError('required')">Date is required</mat-error>
-          </mat-form-field>
+<!-- Each tab component will get its relevant form group passed via an Input -->
+<div [formGroup]="mainForm" class="p-4">
+  <mat-tab-group>
+    <mat-tab label="Kündiung/Entlassung">
+      <ng-template matTabContent>
+        <!-- Pass the 'tabOne' FormGroup to the app-tab-one component -->
+        <app-tab-one [form]="tabOneForm" class="p-4"></app-tab-one>
+      </ng-template>
+    </mat-tab>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Kundigung/Entlassung durch</mat-label>
-            <mat-select formControlName="terminatedBy" required>
-              <mat-option value="Arbeitsgeber/Dienstherr">Arbeitsgeber/Dienstherr</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form1.get('terminatedBy')?.hasError('required')">This field is required</mat-error>
-          </mat-form-field>
-        </div>
+    <mat-tab label="Zusatzangaben">
+      <ng-template matTabContent>
+        <!-- Pass the 'tabTwo' FormGroup to the app-tab-two component -->
+        <app-tab-two [form]="tabTwoForm" class="p-6"></app-tab-two>
+      </ng-template>
+    </mat-tab>
 
-        <fieldset formGroupName="kuendigungsfristArbeitgeber" class="mt-4 p-4 border border-gray-300 rounded">
-          <legend class="text-lg font-semibold">Kündigungsfrist Arbeitgeber</legend>
-          <div class="grid grid-cols-3 gap-4 mt-2">
-            <mat-form-field appearance="fill">
-              <mat-label>Wert</mat-label>
-              <input matInput type="number" formControlName="wert" required>
-              <mat-error *ngIf="form1.get('kuendigungsfristArbeitgeber.wert')?.hasError('required')">Wert is required</mat-error>
-            </mat-form-field>
+    <mat-tab label="Leitungen bei Austritt">
+      <ng-template matTabContent>
+        <!-- Pass the 'tabThree' FormGroup to the app-tab-three component -->
+        <app-tab-three [form]="tabThreeForm" class="p-4"></app-tab-three>
+      </ng-template>
+    </mat-tab>
 
-            <mat-form-field appearance="fill">
-              <mat-label>Zeiteinheit</mat-label>
-              <mat-select formControlName="zeiteinheit" required>
-                <mat-option value="Wochen">Wochen</mat-option>
-                <mat-option value="Monaten">Monaten</mat-option>
-                <mat-option value="Tage">Tage</mat-option>
-              </mat-select>
-              <mat-error *ngIf="form1.get('kuendigungsfristArbeitgeber.zeiteinheit')?.hasError('required')">Zeiteinheit is required</mat-error>
-            </mat-form-field>
+    <mat-tab label="Befristung">
+      <ng-template matTabContent>
+        <!-- Pass the 'tabFour' FormGroup to the app-tab-four component -->
+        <app-tab-four [form]="tabFourForm" class="p-4"></app-tab-four>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 
-            <mat-form-field appearance="fill">
-              <mat-label>Bezugszeitpunkt</mat-label>
-              <mat-select formControlName="bezugszeitpunkt" required>
-                <mat-option value="Zum Quartalsende">Zum Quartalsende</mat-option>
-              </mat-select>
-              <mat-error *ngIf="form1.get('kuendigungsfristArbeitgeber.bezugszeitpunkt')?.hasError('required')">Bezugszeitpunkt is required</mat-error>
-            </mat-form-field>
-          </div>
-        </fieldset>
-
-        <fieldset formGroupName="weitereAngaben" class="mt-4 p-4 border border-gray-300 rounded">
-          <legend class="text-lg font-semibold">Weitere Angaben</legend>
-          <div class="grid grid-cols-1 gap-4 mt-2">
-            <mat-checkbox formControlName="schriftlicheKuendigung">Schriftliche Kündigung</mat-checkbox>
-            <mat-checkbox formControlName="betriebsbedingteKuendigung">Betriebsbedingte Kündigung mit Abfindungsangebot</mat-checkbox>
-          </div>
-        </fieldset>
-
-        <fieldset formGroupName="ausschlussOrdentlicheKuendigung" class="mt-4 p-4 border border-gray-300 rounded">
-          <legend class="text-lg font-semibold">Ausschluss der ordentlichen Kündigung</legend>
-          <div class="grid grid-cols-1 gap-4 mt-2">
-            <mat-checkbox formControlName="gesetzlicherTarifvertraglicherAusschluss">Gesetzlicher/tarifvertraglicher Ausschluss</mat-checkbox>
-            <mat-checkbox formControlName="zeitlichUnbegrenzterAusschluss">Zeitlich unbegrenzter Ausschluss</mat-checkbox>
-            <mat-checkbox formControlName="fristgebundeneKuendigung">Fristgebundene Kündigung trotz zeitlich unbegrenztem Ausschluss</mat-checkbox>
-          </div>
-        </fieldset>
-
-        <div class="flex justify-end mt-4 gap-4">
-          <button mat-raised-button color="primary" type="button" (click)="onSave(form1)" [disabled]="form1.invalid">Save</button>
-          <button mat-stroked-button type="button" (click)="onCancel(form1)">Cancel</button>
-        </div>
-      </form>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab label="Zusatzangaben">
-    <ng-template matTabContent>
-      <form [formGroup]="form2" class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
-
-          <!-- Column 1: General Termination Conditions -->
-          <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
-            <h3 class="text-lg font-semibold mb-3 border-b pb-2">1. General Termination Conditions</h3>
-            <mat-checkbox formControlName="zus_kuendigungsvereinbarungen">
-              Zusätzliche Kündigungsvereinbarungen
-            </mat-checkbox>
-            <mat-checkbox formControlName="ord_kuendigung_leistung">
-              Ordentliche Kündigung (tarif-) vertraglich nur gegen Leistung zulässig
-            </mat-checkbox>
-            <mat-checkbox formControlName="voraussetzungen_fristg_kuendigung">
-              Voraussetzungen für fristgebundene Kündigung aus wichtigem Grund liegen vor
-            </mat-checkbox>
-
-            <div class="mt-4 pt-4 border-t border-gray-200">
-              <p class="text-sm text-gray-600 mb-2">Ohne Eigenkündigung wäre Kündigung durch Arbeitgeber erfolgt</p>
-              <div class="grid grid-cols-2 gap-x-4">
-                <mat-form-field appearance="fill" class="w-full">
-                  <mat-label>am:*</mat-label>
-                  <input matInput [matDatepicker]="agKuendigungAmPicker" formControlName="ag_kuendigung_am" placeholder="TT.MM.JJJJ">
-                  <mat-datepicker-toggle matSuffix [for]="agKuendigungAmPicker"></mat-datepicker-toggle>
-                  <mat-datepicker #agKuendigungAmPicker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="w-full">
-                  <mat-label>zum:*</mat-label>
-                  <input matInput [matDatepicker]="agKuendigungZumPicker" formControlName="ag_kuendigung_zum" placeholder="TT.MM.JJJJ">
-                  <mat-datepicker-toggle matSuffix [for]="agKuendigungZumPicker"></mat-datepicker-toggle>
-                  <mat-datepicker #agKuendigungZumPicker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-
-          <!-- Column 2: Vertragswidriges Verhalten -->
-          <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
-            <h3 class="text-lg font-semibold mb-3 border-b pb-2">2. Vertragswidriges Verhalten</h3>
-            <mat-checkbox formControlName="kuendigung_vertragswidrig">
-              Kündigung wegen vertragswidrigen Verhaltens
-            </mat-checkbox>
-            <mat-checkbox formControlName="abmahnung_vertragswidrig">
-              Abmahnung wegen vertragswidrigen Verhaltens
-            </mat-checkbox>
-            <mat-form-field appearance="fill" class="w-full mt-2">
-              <mat-label>Abmahnungsdatum*</mat-label>
-              <input matInput [matDatepicker]="abmahnungDatumPicker" formControlName="abmahnungsdatum" placeholder="TT.MM.JJJJ">
-              <mat-datepicker-toggle matSuffix [for]="abmahnungDatumPicker"></mat-datepicker-toggle>
-              <mat-datepicker #abmahnungDatumPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <!-- Column 3: Unwiderrufliche bezahlte Freistellung -->
-          <div class="flex flex-col space-y-4 p-4 border border-gray-300 rounded-md">
-            <h3 class="text-lg font-semibold mb-3 border-b pb-2">3. Unwiderrufliche bezahlte Freistellung</h3>
-            <mat-checkbox formControlName="freistellung_einvernehmlich">
-              Freistellung erfolgte einvernehmlich
-            </mat-checkbox>
-          </div>
-
-        </div>
-
-        <div class="flex justify-end mt-6 gap-4">
-          <button mat-raised-button color="primary" type="button" (click)="onSave(form2)" [disabled]="form2.invalid">Save</button>
-          <button mat-stroked-button type="button" (click)="onCancel(form2)">Cancel</button>
-        </div>
-      </form>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab label="Leitungen bei Austritt">
-    <ng-template matTabContent>
-      <form [formGroup]="form3" class="p-4">
-        <!-- Content for Leitungen bei Austritt tab -->
-        <div class="flex justify-end mt-4 gap-4">
-          <button mat-raised-button color="primary" type="button" (click)="onSave(form3)" [disabled]="form3.invalid">Save</button>
-          <button mat-stroked-button type="button" (click)="onCancel(form3)">Cancel</button>
-        </div>
-      </form>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab label="Befristung">
-    <ng-template matTabContent>
-      <form [formGroup]="form4" class="p-4">
-        <!-- Content for Befristung tab -->
-        <div class="flex justify-end mt-4 gap-4">
-          <button mat-raised-button color="primary" type="button" (click)="onSave(form4)" [disabled]="form4.invalid">Save</button>
-          <button mat-stroked-button type="button" (click)="onCancel(form4)">Cancel</button>
-        </div>
-      </form>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+  <!-- Global Save/Cancel buttons for the mainForm -->
+  <div class="flex justify-end mt-6 gap-4">
+    <button mat-raised-button color="primary" type="button" (click)="onSave()" [disabled]="mainForm.invalid">Save</button>
+    <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+  </div>
+</div>

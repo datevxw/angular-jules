@@ -1,0 +1,65 @@
+<ng-container [formGroup]="form">
+  <div class="grid grid-cols-3 gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>arbeitsverhältnis gekündigt/beendet am</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="terminationDate" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('terminationDate')?.hasError('required')">Date is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Kundigung/Entlassung durch</mat-label>
+      <mat-select formControlName="terminatedBy" required>
+        <mat-option value="Arbeitsgeber/Dienstherr">Arbeitsgeber/Dienstherr</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('terminatedBy')?.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <fieldset formGroupName="kuendigungsfristArbeitgeber" class="mt-4 p-4 border border-gray-300 rounded">
+    <legend class="text-lg font-semibold">Kündigungsfrist Arbeitgeber</legend>
+    <div class="grid grid-cols-3 gap-4 mt-2">
+      <mat-form-field appearance="fill">
+        <mat-label>Wert</mat-label>
+        <input matInput type="number" formControlName="wert" required>
+        <mat-error *ngIf="form.get('kuendigungsfristArbeitgeber.wert')?.hasError('required')">Wert is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Zeiteinheit</mat-label>
+        <mat-select formControlName="zeiteinheit" required>
+          <mat-option value="Wochen">Wochen</mat-option>
+          <mat-option value="Monaten">Monaten</mat-option>
+          <mat-option value="Tage">Tage</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('kuendigungsfristArbeitgeber.zeiteinheit')?.hasError('required')">Zeiteinheit is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Bezugszeitpunkt</mat-label>
+        <mat-select formControlName="bezugszeitpunkt" required>
+          <mat-option value="Zum Quartalsende">Zum Quartalsende</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('kuendigungsfristArbeitgeber.bezugszeitpunkt')?.hasError('required')">Bezugszeitpunkt is required</mat-error>
+      </mat-form-field>
+    </div>
+  </fieldset>
+
+  <fieldset formGroupName="weitereAngaben" class="mt-4 p-4 border border-gray-300 rounded">
+    <legend class="text-lg font-semibold">Weitere Angaben</legend>
+    <div class="grid grid-cols-1 gap-4 mt-2">
+      <mat-checkbox formControlName="schriftlicheKuendigung">Schriftliche Kündigung</mat-checkbox>
+      <mat-checkbox formControlName="betriebsbedingteKuendigung">Betriebsbedingte Kündigung mit Abfindungsangebot</mat-checkbox>
+    </div>
+  </fieldset>
+
+  <fieldset formGroupName="ausschlussOrdentlicheKuendigung" class="mt-4 p-4 border border-gray-300 rounded">
+    <legend class="text-lg font-semibold">Ausschluss der ordentlichen Kündigung</legend>
+    <div class="grid grid-cols-1 gap-4 mt-2">
+      <mat-checkbox formControlName="gesetzlicherTarifvertraglicherAusschluss">Gesetzlicher/tarifvertraglicher Ausschluss</mat-checkbox>
+      <mat-checkbox formControlName="zeitlichUnbegrenzterAusschluss">Zeitlich unbegrenzter Ausschluss</mat-checkbox>
+      <mat-checkbox formControlName="fristgebundeneKuendigung">Fristgebundene Kündigung trotz zeitlich unbegrenztem Ausschluss</mat-checkbox>
+    </div>
+  </fieldset>
+</ng-container>
